@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupo 3F - Inicio de Sesión</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #007bff; /* Fondo azul */
+            background-image: radial-gradient(circle, white 20%, transparent 20%), radial-gradient(circle, white 20%, transparent 20%); /* Bolitas blancas */
+            background-size: 40px 40px; /* Tamaño de las bolitas */
+            background-position: 0 0, 20px 20px; /* Posicionamiento de las bolitas */
+        }
+        .login-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+            position: relative;
+            border: 5px solid #dc3545; /* Borde rojo alrededor del contenedor */
+        }
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid #dc3545; /* Borde rojo adicional */
+            border-radius: 16px; /* Redondeo para coincidir con el contenedor */
+            z-index: -1; /* Colocar el borde detrás del contenedor */
+        }
+        .login-container:hover {
+            transform: translateY(-5px);
+        }
+        .login-container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        .login-container p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        .login-container input {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease-in-out;
+        }
+        .login-container input:focus {
+            border-color: #007bff; /* Borde azul al enfocar */
+            outline: none;
+        }
+        .login-container input[type="file"] {
+            border: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background-color: #dc3545; /* Rojo para el botón */
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+        .login-container button:hover {
+            background-color: #c82333; /* Rojo oscuro al pasar el mouse */
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Grupo 3F</h1>
+        <p>Inicia sesión para continuar</p>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Usuario" required>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <input type="text" id="description" placeholder="Descripción" required>
+            <input type="file" id="profilePicture" accept="image/*" required>
+            <button type="submit">Iniciar sesión</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var description = document.getElementById('description').value;
+            var profilePicture = document.getElementById('profilePicture').files[0];
+
+            if ((username === 'Alan' && password === 'London.02') ||
+                (username === 'Colin' && password === 'Randomly') ||
+                (username === 'Abraham' && password === 'MLBB')) {
+                
+                localStorage.setItem('username', username);
+                localStorage.setItem('description', description);
+
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    localStorage.setItem('profilePicture', e.target.result);
+                    window.location.href = 'profile.html';
+                }
+                reader.readAsDataURL(profilePicture);
+            } else {
+                alert('Usuario o contraseña incorrectos.');
+            }
+        });
+    </script>
+</body>
+  </html>
